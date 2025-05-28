@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Calculator UI</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #6b73ff, #000dff);
+      font-family: Arial, sans-serif;
+    }
+    .calculator {
+      background-color: white;
+      padding: 20px;
+      border-radius: 30px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      width: 300px;
+    }
+    #display {
+      width: 95%;
+      height: 60px;
+      font-size: 28px;
+      text-align: right;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 15px;
+      background-color: #f0f0f0;
+      box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    button {
+      width: 60px;
+      height: 60px;
+      margin: 5px;
+      font-size: 22px;
+      border: none;
+      border-radius: 15px;
+      background-color: #e0e0e0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+    button:hover {
+      background-color: #d0d0d0;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    .operator {
+      background-color: #5b5cf6;
+      color: white;
+    }
+    .operator:hover {
+      background-color: #3f40d4;
+    }
+    .clear {
+      background-color: #f44a4a;
+      color: white;
+    }
+    .clear:hover {
+      background-color: #d83737;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <input type="text" id="display" disabled>
+  
+  <div class="button-row">
+    <button onclick="displayNumber('1')">1</button>
+    <button onclick="displayNumber('2')">2</button>
+    <button onclick="displayNumber('3')">3</button>
+    <button class="operator" onclick="Operator('+')">+</button>
+  </div>
+  
+  <div class="button-row">
+    <button onclick="displayNumber('4')">4</button>
+    <button onclick="displayNumber('5')">5</button>
+    <button onclick="displayNumber('6')">6</button>
+    <button class="operator" onclick="Operator('-')">-</button>
+  </div>
+  
+  <div class="button-row">
+    <button onclick="displayNumber('7')">7</button>
+    <button onclick="displayNumber('8')">8</button>
+    <button onclick="displayNumber('9')">9</button>
+    <button class="operator" onclick="Operator('*')">*</button>
+  </div>
+  
+  <div class="button-row">
+    <button onclick="displayNumber('0')">0</button>
+    <button class="clear" onclick="clearDisplay()">C</button>
+    <button class="operator" onclick="calculate()">=</button>
+    <button class="operator" onclick="Operator('/')">/</button>
+  </div>
+</div>
+
+<script>
+  var currentInput = '';
+  var firstNumber = '';
+  var operator = '';
+
+  function displayNumber(num) {
+    currentInput += num;
+    document.getElementById('display').value = currentInput;
+  }
+
+  function Operator(op) {
+    firstNumber = currentInput;
+    operator = op;
+    currentInput = '';
+  }
+
+  function calculate() {
+    var secondNumber = currentInput;
+    var result = 0;
+    result = (operator == '+') * (Number(firstNumber) + Number(secondNumber)) +
+             (operator == '-') * (Number(firstNumber) - Number(secondNumber)) +
+             (operator == '*') * (Number(firstNumber) * Number(secondNumber)) +
+             (operator == '/') * (Number(firstNumber) / Number(secondNumber));
+    document.getElementById('display').value = result;
+    currentInput = result;
+  }
+
+  function clearDisplay() {
+    currentInput = '';
+    firstNumber = '';
+    operator = '';
+    document.getElementById('display').value = '';
+  }
+</script>
+
+</body>
+</html>
